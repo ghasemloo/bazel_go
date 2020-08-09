@@ -1,0 +1,19 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["example.go"],
+    importpath = "github.com/ghasemloo/bazel_go/example",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["example_test.go"],
+    embed = [":go_default_library"],
+    deps = [
+        "@com_github_golang_glog//:go_default_library",
+        "@org_golang_google_protobuf//types/known/anypb:go_default_library",
+        "@org_golang_google_protobuf//types/known/emptypb:go_default_library",
+    ],
+)
