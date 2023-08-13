@@ -3,7 +3,7 @@ package example
 import (
 	"testing"
 
-        glog "github.com/golang/glog"
+	glog "github.com/golang/glog"
 
 	anypb "google.golang.org/protobuf/types/known/anypb"
 	epb "google.golang.org/protobuf/types/known/emptypb"
@@ -20,4 +20,3 @@ func Test(t *testing.T) {
 		t.Fatalf("UnmarshalNew() failed: %v", err)
 	}
 }
-

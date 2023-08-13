@@ -14,4 +14,3 @@
 
 // Package example is an example.
 package example
-

@@ -4,5 +4,31 @@ package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
 
+# The go packages in this repository will have this string as a prefox in import statements.
 # gazelle:prefix github.com/ghasemloo/bazel_go
-gazelle(name = "gazelle")
+
+# Mapping from proto import path to go import path.
+# gazelle:resolve proto proto google/rpc/status.proto @googleapis//google/rpc:status_proto
+# gazelle:resolve proto go google/rpc/status.proto  @org_golang_google_genproto//googleapis/rpc/status
+# gazelle:resolve proto google/longrunning/operations.proto @googleapis//google/longrunning:operations_proto
+# gazelle:resolve proto go google/longrunning/operations.proto @org_golang_google_genproto//googleapis/longrunning
+
+# The gazelle target to fix BUILD files.
+# To run gazelle: bazel run //:gazelle
+gazelle(
+    name = "gazelle",
+    args = [
+        "-go_prefix=github.com/ghasemloo/bazel_go",
+    ],
+    command = "fix",
+)
+
+gazelle(
+    name = "gazelle-update-repos",
+    args = [
+        "-from_file=go.mod",
+        "-to_macro=deps.bzl%go_dependencies",
+        "-prune",
+    ],
+    command = "update-repos",
+)
